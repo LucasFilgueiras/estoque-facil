@@ -1,6 +1,7 @@
 import { addProducts, createProducts, deleteProducts, getProducts, removeProducts } from "./controllers/productsController"
 import { Router } from "express"
 import { productsInStorage, productsInStorageChart } from "./controllers/dashboardController"
+import { getLogProducts } from "./controllers/logController"
 
 const route: Router = Router()
 
@@ -14,5 +15,9 @@ route.delete("/products/:id", deleteProducts)
 // Routes for dashboardController
 route.get("/dashboard/products_storage", productsInStorage)
 route.get("/dashboard/products_chart", productsInStorageChart)
+
+// Route for catch the log data
+route.get("/products/log", getLogProducts)
+
 
 export default route

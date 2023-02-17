@@ -1,6 +1,7 @@
 import { Header } from "./Header"
 import { Menu } from "./Menu"
 import { CardActions } from "./CardActions"
+import { ToastContainer } from 'react-toastify'
 
 export const Actions = () => {
 
@@ -41,6 +42,7 @@ export const Actions = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

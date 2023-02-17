@@ -28,11 +28,11 @@ export const TableReports = () => {
     }
 
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Nome', width: 150 },
+        { field: 'name', headerName: 'Nome', width: 160 },
         { field: 'description', headerName: 'Descrição', width: 250 },
         { field: 'producer', headerName: 'Fabricante', width: 250 },
-        { field: 'amount', headerName: 'Quantidade', width: 150 },
-        { field: 'price', headerName: 'Preço', width: 150 },
+        { field: 'amount', headerName: 'Quantidade', width: 160 },
+        { field: 'price', headerName: 'Preço', width: 160 },
     ]
 
     const rows: GridRowsProp = tableData

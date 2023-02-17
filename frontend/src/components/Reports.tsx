@@ -15,7 +15,7 @@ export const Reports = () => {
                     <Menu />
                 </div>
                 {showReport ? (
-                    <div className="p-10 w-full">
+                    <div className="p-10 w-full h-full">
                         <h1 className="font-medium text-3xl">Relatórios</h1>
                         <div className="bg-white rounded-lg mt-12 shadow-lg w-[50%]">
                             <h1 className="px-3 py-2 text-gray-600 text-bold text-lg text font-semibold">Posição de estoque</h1>
@@ -39,7 +39,7 @@ export const Reports = () => {
                         </div>
                     </div>
                 ): (
-                    <div className="p-10 w-full">
+                    <div className="p-10 w-full mb-16">
                         <h1 className="font-medium text-3xl">Posição de estoque</h1>
                         <TableReports />
                     </div>
