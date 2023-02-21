@@ -1,6 +1,6 @@
-## Estoque Fácil
+# Estoque Fácil
 
-# Um sistema de simples de controle de estoque que permite ao usuário cadastrar produtos, realizar entradas/saídas do estoque e retirar relatórios referente a seu estoque.
+## Um sistema de simples de controle de estoque que permite ao usuário cadastrar produtos, realizar entradas/saídas do estoque e retirar relatórios referente a seu estoque.
 
 Tecnologias utilizadas:
 
