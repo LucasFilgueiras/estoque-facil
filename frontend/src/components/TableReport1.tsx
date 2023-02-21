@@ -2,7 +2,7 @@ import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { api } from '../lib/axios';
 
-interface TableDataType {
+interface TableDataType1 {
     id: number
     name: string
     description: string
@@ -11,8 +11,9 @@ interface TableDataType {
     price?: number
 }
 
-export const TableReports = () => {
-    const [tableData, setTableData] = useState<TableDataType[]>([{
+export const TableReport1 = () => {
+
+    const [tableData1, setTableData1] = useState<TableDataType1[]>([{
         id: 0,
         name: "",
         description: "",
@@ -21,13 +22,14 @@ export const TableReports = () => {
         price: 0
     }])
 
-    const handleTableData = async () => {
+    const handleTableData1 = async () => {
         const fetch = await api.get("/products")
         const response = fetch.data
-        setTableData(response)
+        setTableData1(response)
     }
 
-    const columns: GridColDef[] = [
+
+    const columns1: GridColDef[] = [
         { field: 'name', headerName: 'Nome', width: 160 },
         { field: 'description', headerName: 'Descrição', width: 250 },
         { field: 'producer', headerName: 'Fabricante', width: 250 },
@@ -35,14 +37,14 @@ export const TableReports = () => {
         { field: 'price', headerName: 'Preço', width: 160 },
     ]
 
-    const rows: GridRowsProp = tableData
+    const rows1: GridRowsProp = tableData1
 
     useEffect(() => {
-        handleTableData()
-        console.log(tableData)
+        handleTableData1()
+        //console.log(tableData2)
     }, [])
 
     return (
-        <DataGrid className="bg-white mt-6" rows={rows} columns={columns} />
+        <DataGrid className="bg-white mt-6" rows={rows1} columns={columns1} />
     )
 }

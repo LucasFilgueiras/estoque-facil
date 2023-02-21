@@ -23,7 +23,7 @@ interface FormDataType {
 interface ApiDataType {
     id: number
     created_at: Date
-    amount: number
+    amount?: number
     producer: string
     name: string
 }
@@ -70,21 +70,25 @@ export const CardActions = (props: CardActionsProps) => {
         })
     }
 
-    const handleCreateProduct = async () => {
+    const handleCreateProduct = async (e: any) => {
+        e.preventDefault()
         await api.post("/products", formData)
     }
 
-    const handleDeleteProduct = async (id: number | undefined) => {
+    const handleDeleteProduct = async (id: number | undefined, e: any) => {
+        e.preventDefault()
         await api.delete(`/products/${id}`)
     }
 
-    const handleRemoveAmountProduct = async (id: number | undefined) => {
+    const handleRemoveAmountProduct = async (id: number | undefined, e: any) => {
+        e.preventDefault()
         await api.put(`/products/remove/${id}`, {
             amount: removeAmountData
         })
     }
 
-    const handleAddAmountProduct = async (id: number | undefined) => {
+    const handleAddAmountProduct = async (id: number | undefined, e: any) => {
+        e.preventDefault()
         await api.put(`/products/add/${id}`, {
             amount: addAmountData
         })
@@ -92,10 +96,11 @@ export const CardActions = (props: CardActionsProps) => {
 
     useEffect(() => {
         handleFetchAPI()
-    }, [])
+        //console.log(dataApi)
+    }, [dataApi])
 
     return (
-        <div className="bg-white rounded-lg mt-12 shadow-lg w-[50%]">
+        <div className="bg-white rounded-lg mt-12 shadow-lg">
             <h1 className="px-3 py-2 text-gray-600 text-bold text-lg text font-semibold">{props.title}</h1>
             <hr />
             <div className="py-3 px-5 flex gap-5 items-center">
@@ -125,7 +130,7 @@ export const CardActions = (props: CardActionsProps) => {
                                     </Dialog.Close>
                                 </div>
 
-                                <form className="mt-12" onSubmit={handleCreateProduct}>
+                                <form className="mt-12" onSubmit={handleCreateProduct} autoComplete="off">
                                     <div className="relative z-0 w-full mb-6 group">
                                         <input type="text" id="itemName" name="name" onChange={handleChangeFormData} className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                         <label htmlFor="itemName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome</label>
@@ -142,9 +147,8 @@ export const CardActions = (props: CardActionsProps) => {
                                         <input type="number" id="itemPrice" name="price" onChange={handleChangeFormData} className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                         <label htmlFor="itemPrice" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Preço (Opcional)</label>
                                     </div>
-                                    <Dialog.Close>
-                                        <button type="submit" onClick={notifySuccess} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cadastrar</button>
-                                    </Dialog.Close>
+                                    
+                                    <button type="submit" onClick={notifySuccess} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cadastrar</button>
                                 </form>
                                 
                             </Dialog.Content>
@@ -173,7 +177,7 @@ export const CardActions = (props: CardActionsProps) => {
                                     </Dialog.Close>
                                 </div>
 
-                                <form className="mt-12" onSubmit={() => handleRemoveAmountProduct(removeAmountIdData)}>
+                                <form className="mt-12" onSubmit={(e) => handleRemoveAmountProduct(removeAmountIdData, e)}>
                                     <div className="flex flex-col gap-3">
                                         <label htmlFor="itemName" className="text-gray-500 leading-tight text-sm" onClick={() => console.log(removeAmountIdData)}>Nome do item</label>
                                         <select id="itemName" value={removeAmountIdData} onChange={(e) => setRemoveAmountIdData(parseInt(e.target.value))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -215,7 +219,7 @@ export const CardActions = (props: CardActionsProps) => {
                                     </Dialog.Close>
                                 </div>
 
-                                <form className="mt-12" onSubmit={() => handleAddAmountProduct(addAmountIdData)}>
+                                <form className="mt-12" onSubmit={(e) => handleAddAmountProduct(addAmountIdData, e)}>
                                     <div className="flex flex-col gap-3">
                                         <label htmlFor="itemName" className="text-gray-500 leading-tight text-sm">Nome do item</label>
                                         <select value={addAmountIdData} onChange={(e) => setAddAmountIdData(parseInt(e.target.value))} id="itemName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -256,7 +260,7 @@ export const CardActions = (props: CardActionsProps) => {
                                 </Dialog.Close>
                             </div>
 
-                            <form className="mt-12" onSubmit={() => handleDeleteProduct(deleteIdData)}>
+                            <form className="mt-12" onSubmit={(e) => handleDeleteProduct(deleteIdData, e)}>
                                 <div className="flex flex-col gap-3">
                                     <label htmlFor="itemName" className="text-gray-500 leading-tight text-sm">Nome do item</label>
                                     <select id="itemName" value={deleteIdData} onChange={(e) => setDeleteIdData(parseInt(e.target.value))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">

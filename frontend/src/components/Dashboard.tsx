@@ -86,6 +86,7 @@ export const Dashboard = () => {
     useEffect(() => {
         productsInfoStorage()
         productsInfoStorageChart()
+        console.log(productsAmountChart)
     }, [])
 
     return (
@@ -106,12 +107,12 @@ export const Dashboard = () => {
                         <div className="bg-white w-[32%] rounded-lg mt-12 transition-all duration-500 hover:scale-105 hover:shadow-lg">
                             <h1 className="px-3 py-2 text-gray-600 text-lg text font-semibold">Total em R$</h1>
                             <hr />
-                            <h1 className="px-3 py-5 text-center text-black text-3xl font-semibold">{infoProducts[0].productspricestorage},00</h1>
+                            <h1 className="px-3 py-5 text-center text-black text-3xl font-semibold">{infoProducts[0].productspricestorage !== null ? infoProducts[0].productspricestorage + ",00" : "0"}</h1>
                         </div>
                         <div className="bg-white w-[32%] rounded-lg mt-12 transition-all duration-500 hover:scale-105 hover:shadow-lg">
                             <h1 className="px-3 py-2 text-gray-600 text-lg text font-semibold">Total de produtos em estoque: <br /> (em quantidade)</h1>
                             <hr />
-                            <h1 className="px-3 py-5 flex justify-center text-black text-3xl text font-semibold">{infoProducts[0].productsamountstorage}</h1>
+                            <h1 className="px-3 py-5 flex justify-center text-black text-3xl text font-semibold">{infoProducts[0].productsamountstorage !== null ? infoProducts[0].productsamountstorage : "0"}</h1>
                         </div>
                     </div>
                     <div className="flex gap-10">
@@ -119,14 +120,26 @@ export const Dashboard = () => {
                             <h1 className="px-3 py-2 text-gray-600 text-bold text-lg text font-semibold">Produtos por quantidade</h1>
                             <hr />
                             <div className="flex justify-center">
-                                <Chart className="py-4" options={productsAmountChart} series={productsAmountChart.series} type="pie" width={380} />
+                                {infoProductsChart.length !== 0 ? (
+                                    <Chart className="py-4" options={productsAmountChart} series={productsAmountChart.series} type="pie" width={380} />
+                                ): (
+                                    <span className="mt-36 text-xl h-56">
+                                        <strong>Não há dados para exibir o gráfico.</strong>
+                                    </span>
+                                )}
                             </div>
                         </div>
                         <div className="bg-white rounded-lg mt-12 transition-all duration-500 w-1/2">
                             <h1 className="px-3 py-2 text-gray-600 text-bold text-lg text font-semibold">Produtos por preço</h1>
                             <hr />
                             <div className="flex justify-center">
-                                <Chart className="py-4" options={productsPriceChart} series={productsPriceChart.series} type="pie" width={380} />
+                                {infoProductsChart.length !== 0 ? (
+                                    <Chart className="py-4" options={productsPriceChart} series={productsPriceChart.series} type="pie" width={380} />
+                                ): (
+                                    <span className="mt-36 text-xl h-56">
+                                        <strong>Não há dados para exibir o gráfico.</strong>
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -47,9 +47,9 @@ export const removeProducts = async (req: Request, res: Response) => {
 
     try {
         const sql: string = "UPDATE products SET updated_at = $1, amount = amount - $2 WHERE id=$3 RETURNING *"
-        const sqlLog: string = "INSERT INTO products_log(name, type, date) VALUES ((SELECT name FROM products WHERE id=$1), 0, $2) RETURNING *"
+        const sqlLog: string = "INSERT INTO products_exits(name, date, id_product) VALUES ((SELECT name FROM products WHERE id=$1), $2, $3) RETURNING *"
         const values = [dbDate, amount, id]
-        const valuesLog = [id, dbDate]
+        const valuesLog = [id, dbDate, id]
         const query = await db.query(sql, values)
         const queryLog = await db.query(sqlLog, valuesLog)
         return res.status(200).json({
@@ -72,9 +72,9 @@ export const addProducts = async (req: Request, res: Response) => {
 
     try {
         const sql: string = "UPDATE products SET updated_at = $1, amount = amount + $2 WHERE id=$3 RETURNING *"
-        const sqlLog: string = "INSERT INTO products_log(name, type, date) VALUES ((SELECT name FROM products WHERE id=$1), 1, $2) RETURNING *"
+        const sqlLog: string = "INSERT INTO products_entries(name, date, id_product) VALUES ((SELECT name FROM products WHERE id=$1), $2, $3) RETURNING *"
         const values = [dbDate, amount, id]
-        const valuesLog = [id, dbDate]
+        const valuesLog = [id, dbDate, id]
         const query = await db.query(sql, values)
         const queryLog = await db.query(sqlLog, valuesLog)
         return res.status(200).json({
